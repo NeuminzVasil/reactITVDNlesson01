@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
             <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>-->
 </head>
@@ -16,38 +16,38 @@
 
 <script type="text/babel">
 
-    var CONTACTS = [
+    let CONTACTS = [
         {
             id: 1,
-            name: 'name1',
-            phoneNumber: '+70000001',
-            image: '1.gif'
+            name: 'name11',
+            phoneNumber: '+701',
+            image: "img/1.gif"
         },
         {
             id: 2,
-            name: 'name2',
-            phoneNumber: '+70000002',
-            image: '1.gif'
+            name: 'name12',
+            phoneNumber: '+7002',
+            image: "img/2.gif"
         },
         {
             id: 3,
-            name: 'name3',
-            phoneNumber: '+70000003',
-            image: '1.gif'
+            name: 'name23',
+            phoneNumber: '+70003',
+            image: "img/3.gif"
         },
         {
             id: 4,
-            name: 'name4',
-            phoneNumber: '+70000004',
-            image: '1.gif'
+            name: 'name24',
+            phoneNumber: '+700004',
+            image: "img/4.gif"
         }
     ];
 
-    var Contact = React.createClass({
+    let Contact = React.createClass({
         render: function () {
             return (
                 <li className="contact">
-                    <img className="contact-image" src={this.props.image}/>
+                    <img className="contact-image" src={this.props.image} alt="contact image not found"/>
                     <div className="contact-info">
                         <div className="contact-id"> {this.props.id} </div>
                         <div className="contact-name"> {this.props.name} </div>
@@ -56,21 +56,57 @@
                 </li>
             );
         }
-    })
+    });
 
-    var ContactsList = React.createClass({
+    let ContactsList = React.createClass({
+
+        getInitialState: function (){
+            return { 
+                displayedContacts: CONTACTS
+            };
+        },
+
+        handleSearch: function (event) {
+            let searchQuery = event.target.value.toLowerCase();
+            let displayedContacts = CONTACTS.filter(function (element) {
+                let searchValue = element.name.toLowerCase();
+                return searchValue.indexOf(searchQuery) !== -1;
+            });
+            this.setState({
+                displayedContacts: displayedContacts
+            });
+            console.log(displayedContacts);
+        },
+
+        handleSearch2: function (event) {
+            let searchQuery = event.target.value.toLowerCase();
+            let displayedContacts = CONTACTS.filter(function (element) {
+                let searchValue = element.phoneNumber;
+                return searchValue.indexOf(searchQuery) !== -1;
+            });
+            this.setState({
+                displayedContacts: displayedContacts
+            });
+            console.log(displayedContacts);
+        },
+
         render: function () {
             return (
                 <div className="contacts">
-                    <input type="text" className="search-field" onChange={this.handleSearch}/>
+                    <label>
+                        <input type="text" className="search-field" onChange={this.handleSearch}/>
+                    </label>
+                    <label>
+                        <input type="text" className="search-field" onChange={this.handleSearch2}/>
+                    </label>
                     <ul className="contacts-list">
                         {
-                            CONTACTS.map(function (el) {
-                                return <Contact key={el.id}
-                                                id={el.id}
-                                                name={el.name}
-                                                phoneNumber={el.phoneNumber}
-                                                image={el.image}
+                            this.state.displayedContacts.map(function (element) {
+                                return <Contact key={element.id}
+                                                id={element.id}
+                                                name={element.name}
+                                                phoneNumber={element.phoneNumber}
+                                                image={element.image}
                                 />;
                             })
                         }
