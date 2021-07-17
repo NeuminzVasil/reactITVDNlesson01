@@ -46,9 +46,14 @@
 
     var Contact = React.createClass({
         render: function () {
-            return <li>
-                    {this.props.id} \ {this.props.name} \ {this.props.phoneNumber} \ {this.props.image}
+            return (
+                <li>
+                    <img src={this.props.image} width="60px" height="60px"/>
+                    <div> {this.props.id} </div>
+                    <div> {this.props.name} </div>
+                    <div> {this.props.phoneNumber}</div>
                 </li>
+            );
         }
     })
 
@@ -59,7 +64,8 @@
                     <ul>
                         {
                             CONTACTS.map(function (el) {
-                                return <Contact key={el.id} id={el.id} name={el.name} phoneNumber={el.phoneNumber} image={el.image} />
+                                return <Contact key={el.id} id={el.id} name={el.name} phoneNumber={el.phoneNumber}
+                                                image={el.image}/>
                             })
                         }
                     </ul>
