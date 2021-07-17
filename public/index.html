@@ -6,26 +6,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
-    <!--    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>-->
+    <!--        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+            <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>-->
 </head>
 <body>
 
 <div id="content"></div>
 
 <script type="text/babel">
-    var HelloWorld = React.createClass({
+
+    var CONTACTS = [
+        {
+            id: 1,
+            name: 'name1',
+            phoneNumber: '+70000001',
+            image: 'http://1.image'
+        },
+        {
+            id: 2,
+            name: 'name2',
+            phoneNumber: '+70000002',
+            image: 'http://2.image'
+        },
+
+        {
+            id: 3,
+            name: 'name3',
+            phoneNumber: '+70000003',
+            image: 'http://3.image'
+        },
+
+        {
+            id: 4,
+            name: 'name4',
+            phoneNumber: '+70000004',
+            image: 'http://4.image'
+        }
+    ];
+
+    var Contact = React.createClass({
         render: function () {
-            return <h1> Hello fn = {this.props.fname} ln = {this.props.lname} </h1>;
+            return <li>
+                    {this.props.id} \ {this.props.name} \ {this.props.phoneNumber} \ {this.props.image}
+                </li>
+        }
+    })
+
+    var ContactsList = React.createClass({
+        render: function () {
+            return (
+                <div>
+                    <ul>
+                        {
+                            CONTACTS.map(function (el) {
+                                return <Contact key={el.id} id={el.id} name={el.name} phoneNumber={el.phoneNumber} image={el.image} />
+                            })
+                        }
+                    </ul>
+                </div>
+            );
         }
     });
 
     ReactDOM.render(
-        <div>
-            <HelloWorld fname="Nastya" lname="x1"/>
-            <HelloWorld fname="Katya" lname="x2"/>
-            <HelloWorld fname="Vasya" lname="x3"/>
-        </div>,
+        <ContactsList/>,
         document.getElementById("content")
     );
 </script>
