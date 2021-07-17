@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!--        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
             <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>-->
 </head>
@@ -20,38 +21,38 @@
             id: 1,
             name: 'name1',
             phoneNumber: '+70000001',
-            image: 'http://1.image'
+            image: '1.gif'
         },
         {
             id: 2,
             name: 'name2',
             phoneNumber: '+70000002',
-            image: 'http://2.image'
+            image: '1.gif'
         },
-
         {
             id: 3,
             name: 'name3',
             phoneNumber: '+70000003',
-            image: 'http://3.image'
+            image: '1.gif'
         },
-
         {
             id: 4,
             name: 'name4',
             phoneNumber: '+70000004',
-            image: 'http://4.image'
+            image: '1.gif'
         }
     ];
 
     var Contact = React.createClass({
         render: function () {
             return (
-                <li>
-                    <img src={this.props.image} width="60px" height="60px"/>
-                    <div> {this.props.id} </div>
-                    <div> {this.props.name} </div>
-                    <div> {this.props.phoneNumber}</div>
+                <li className="contact">
+                    <img className="contact-image" src={this.props.image}/>
+                    <div className="contact-info">
+                        <div className="contact-id"> {this.props.id} </div>
+                        <div className="contact-name"> {this.props.name} </div>
+                        <div className="contact-phoneNumber"> {this.props.phoneNumber}</div>
+                    </div>
                 </li>
             );
         }
@@ -60,12 +61,17 @@
     var ContactsList = React.createClass({
         render: function () {
             return (
-                <div>
-                    <ul>
+                <div className="contacts">
+                    <input type="text" className="search-field" onChange={this.handleSearch}/>
+                    <ul className="contacts-list">
                         {
                             CONTACTS.map(function (el) {
-                                return <Contact key={el.id} id={el.id} name={el.name} phoneNumber={el.phoneNumber}
-                                                image={el.image}/>
+                                return <Contact key={el.id}
+                                                id={el.id}
+                                                name={el.name}
+                                                phoneNumber={el.phoneNumber}
+                                                image={el.image}
+                                />;
                             })
                         }
                     </ul>
